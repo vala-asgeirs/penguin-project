@@ -8,16 +8,16 @@ df = pd.read_csv("data/penguins_size.csv")
 df.replace('.', np.nan, inplace=True)
 
 # Drop all rows that contain NaN as a value, since we don't want to use those in our calculations
-df = df.dropna()
+df_clean = df.dropna()
 
 # The numerical attributes we want to use are in columns 3, 4, 5 and 6
 cols = range(2, 6)
 
 # Get the names of the attributes we want to use
-numAttributeNames = np.asarray(df.columns[cols])
+numAttributeNames = np.asarray(df_clean.columns[cols])
 
 # Drop all columns exept the one we want to use from our dataframe
-num_df = df.iloc[:, cols]
+num_df = df_clean.iloc[:, cols]
 
 # Create a dictionary where each attribute name will be a key
 num_attribute_dict = dict()
@@ -62,7 +62,7 @@ print(percentile_df)
 print()
 
 # Get the column that contains species in our data
-species = df["species"]
+species = df_clean["species"]
 
 # Count how many times each species appears in the data
 speciesCount = species.value_counts()
@@ -71,7 +71,7 @@ print(speciesCount)
 print()
 
 # Get the column that contains islands in our data
-islands = df["island"]
+islands = df_clean["island"]
 
 # Count how many times each island appears in the data
 islandCount = islands.value_counts()
@@ -80,7 +80,7 @@ print(islandCount)
 print()
 
 # Get the column that contains sexes in our data
-sex = df["sex"]
+sex = df_clean["sex"]
 
 # Count how many times each value of sex appears
 sexCount = sex.value_counts()
