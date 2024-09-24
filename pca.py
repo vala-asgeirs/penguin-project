@@ -46,10 +46,32 @@ print(standardized_df)
 
 # Step 4: Compute the covariance matrix using NumPy
 cov_matrix = np.cov(standardized_df.T)  # Transpose because np.cov expects variables in rows, not columns
-print("\nCovariance Matrix:\n", cov_matrix)
 
+# Compute eigenvalues and eigenvectors of the covariance matrix
+eigenvalues, eigenvectors = np.linalg.eig(cov_matrix)
 
+# Sort the eigenvalues and corresponding eigenvectors
+sorted_indices = np.argsort(eigenvalues)[::-1]
+sorted_eigenvalues = eigenvalues[sorted_indices]
+sorted_eigenvectors = eigenvectors[:, sorted_indices]
 
+# Calculate the explained variance (eigenvalues represent variance)
+explained_variance_ratio = sorted_eigenvalues / np.sum(sorted_eigenvalues)
+cumulative_variance_explained = np.cumsum(explained_variance_ratio)
+
+# Plot the cumulative explained variance
+plt.figure(figsize=(8, 6))
+plt.plot(range(1, len(explained_variance_ratio) + 1), cumulative_variance_explained, marker='o', linestyle='--', color='b')
+plt.title('Cumulative Explained Variance by PCA Components')
+plt.xlabel('Number of PCA Components')
+plt.ylabel('Cumulative Explained Variance')
+plt.grid(True)
+plt.show()
+
+# Print the explained variance ratio for each component
+print("Explained variance ratio by components:", explained_variance_ratio)
+print("Cumulative explained variance:", cumulative_variance_explained)
+"""
 i = 1  # Index for the first attribute
 j = 5  # Index for the second attribute
 
@@ -77,3 +99,4 @@ plt.ylabel(attributeNames[j])
 
 # Output result to screen
 plt.show()
+"""
