@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from summary_statistics import df_clean, num_df
+import matplotlib.pyplot as plt
 
 # Get the attribute names and put them in a Numpy array
 attributeNames = np.asarray(df_clean.columns)
@@ -43,5 +44,36 @@ standardized_df['sex'] = encoded_sex_array
 
 print(standardized_df)
 
-# 
+# Step 4: Compute the covariance matrix using NumPy
+cov_matrix = np.cov(standardized_df.T)  # Transpose because np.cov expects variables in rows, not columns
+print("\nCovariance Matrix:\n", cov_matrix)
 
+
+
+i = 1  # Index for the first attribute
+j = 5  # Index for the second attribute
+
+# Make a simple plot of the i'th attribute against the j'th attribute
+#plt.plot(standardized_df.iloc[:, i], standardized_df.iloc[:, j], "o")  # Use iloc to index DataFrame columns
+
+# Create another more fancy plot that includes legend, class labels,
+# attribute names, and a title.
+plt.figure()  # Initialize a new figure
+plt.title("Penguin data")  # Add a title to the plot
+
+C = len(unique_species)
+y = encoded_species_array
+for c in range(C):  # Assuming `C` is the number of unique classes
+    # select indices belonging to class c:
+    class_mask = (y == c)  # Create a boolean mask for class `c`
+    
+    # Plot the data points for class `c`
+    plt.plot(standardized_df.iloc[class_mask, i], standardized_df.iloc[class_mask, j], "o", alpha=0.3)
+
+# Add legend, labels, and axis names
+plt.legend(unique_species)  # Assuming `classNames` is a list of class labels
+plt.xlabel(attributeNames[i])  # Assuming `attributeNames` is a list of attribute names
+plt.ylabel(attributeNames[j])
+
+# Output result to screen
+plt.show()
