@@ -15,7 +15,7 @@ unique_species = np.unique(species_arr)
 species_to_int = {species: idx for idx, species in enumerate(unique_species)}
 # Encode the original array into integers using the dictionary
 encoded_species_array = np.array([species_to_int[species] for species in species_arr])
-
+print(species_to_int)
 # Let's do this for all non-numeric columns
 
 island_arr = np.asarray(df_clean['island'])
@@ -41,4 +41,4 @@ standardized_df['species'] = encoded_species_array
 standardized_df['island'] = encoded_island_array
 standardized_df['sex'] = encoded_sex_array
 
-print(standardized_num_data)
+print(standardized_df)

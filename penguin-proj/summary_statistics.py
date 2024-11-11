@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 # Open the file containing our data
-df = pd.read_csv("data/penguins_size.csv")
+df = pd.read_csv("../data/penguins_size.csv")
 
 # Replace . that are in our data with NaN
 df.replace('.', np.nan, inplace=True)
